@@ -1,14 +1,14 @@
 {
-  "version": "2.2.1",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.2.1/AuthorizedWebView2Rpa-2.2.1-win-x64.zip",
-  "sha256": "e6f3120f7d02e5d3bc7f903acd4d89426eb1f8c89a7d6fd4da553ce058ec8504",
-  "fileSize": 392376674,
+  "version": "2.3.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.3.0/AuthorizedWebView2Rpa-2.3.0-win-x64.zip",
+  "sha256": "cfce6b79003f5a6da1425d3c35556b93c758b17e8df94c642f0b98398bcc18bc",
+  "fileSize": 422951957,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Test aktualizatora: podniesienie wersji z 2.2.0 do 2.2.1",
-    "Okno aplikacji uruchamia się automatycznie w trybie zmaksymalizowanym",
-    "Tytuł okna odczytuje numer bezpośrednio z wersji pliku EXE",
+    "Zastąpiono zawodny skrypt PowerShell natywnym UpdaterHost.exe",
+    "Aktualizator wykonuje ponowną kontrolę SHA-256, backup, podmianę, walidację wersji i rollback",
+    "Po sukcesie aplikacja jest automatycznie uruchamiana ponownie",
     "Patrol, ROI, YOLO, WebView2 i ustawienia użytkownika pozostają bez zmian"
   ],
   "filesToPreserve": [
