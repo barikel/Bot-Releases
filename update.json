@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.0.0/AuthorizedWebView2Rpa-2.0.0-win-x64.zip",
+  "sha256": "89caeb5bc0dc0717d7a524d3dfbc8afb5a16bd1947051be243494d0e45553e34",
+  "fileSize": 392342893,
+  "mandatory": false,
+  "mainExecutable": "AuthorizedWebView2Rpa.exe",
+  "releaseNotes": [
+    "Projekt zastąpiony aktualną bazą YOLO",
+    "Automatyczna aktualizacja całego programu z backupem i rollbackiem",
+    "Lokalny model best.pt i ustawienia użytkownika pozostają bez zmian"
+  ],
+  "filesToPreserve": [
+    "config.json"
+  ],
+  "directoriesToPreserve": [
+    "Data",
+    "Profiles",
+    "Models/Weights",
+    "Logs"
+  ]
+}
