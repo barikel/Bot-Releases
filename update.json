@@ -1,16 +1,15 @@
 {
-  "version": "2.2.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.2.0/AuthorizedWebView2Rpa-2.2.0-win-x64.zip",
-  "sha256": "f80a9106efd804f7c76fde3a08d34c33780fd56bac6c5aacd969eb14f4111c0f",
-  "fileSize": 392376816,
+  "version": "2.2.1",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.2.1/AuthorizedWebView2Rpa-2.2.1-win-x64.zip",
+  "sha256": "16cfd7ab5faaed8dbfacf67add6b14ecea92d93fa1851c07e165dafc77fef5d3",
+  "fileSize": 392376551,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono pętlę pobierania bez podmiany folderu aplikacji",
-    "Dodano odporny instalator z retry, kontrolą procesów, wersji i rollbackiem",
-    "Usunięto pola login, hasło i ręczny przycisk logowania",
-    "WebView2 automatycznie otwiera odkodowany adres po inicjalizacji Core",
-    "Patrol, trzy ROI, humanizacja wejścia i logika YOLO pozostają bez zmian"
+    "Test aktualizatora: podniesienie wersji z 2.2.0 do 2.2.1",
+    "Okno aplikacji uruchamia się automatycznie w trybie zmaksymalizowanym",
+    "Tytuł okna odczytuje numer bezpośrednio z wersji pliku EXE",
+    "Patrol, ROI, YOLO, WebView2 i ustawienia użytkownika pozostają bez zmian"
   ],
   "filesToPreserve": [
     "config.json"
