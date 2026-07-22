@@ -1,15 +1,16 @@
 {
-  "version": "2.1.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.1.0/AuthorizedWebView2Rpa-2.1.0-win-x64.zip",
-  "sha256": "ad602d037e020a43e39b5830eb7d18d795a896c4161dac0845fe4e6ba1f32c1a",
-  "fileSize": 392373858,
+  "version": "2.2.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.2.0/AuthorizedWebView2Rpa-2.2.0-win-x64.zip",
+  "sha256": "f80a9106efd804f7c76fde3a08d34c33780fd56bac6c5aacd969eb14f4111c0f",
+  "fileSize": 392376816,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Trzy niezależne strefy MiniMapROI, MainSeaROI i CenterShipROI",
-    "Sekwencyjny Idle Patrol Loop A/B/C z przerwaniem po wykryciu celu",
-    "Humanizowane wejście CDP: krzywe Beziera, jitter i zmienne opóźnienia",
-    "Mechanizmy YOLO, logowanie i lokalny best.pt pozostają zachowane"
+    "Naprawiono pętlę pobierania bez podmiany folderu aplikacji",
+    "Dodano odporny instalator z retry, kontrolą procesów, wersji i rollbackiem",
+    "Usunięto pola login, hasło i ręczny przycisk logowania",
+    "WebView2 automatycznie otwiera odkodowany adres po inicjalizacji Core",
+    "Patrol, trzy ROI, humanizacja wejścia i logika YOLO pozostają bez zmian"
   ],
   "filesToPreserve": [
     "config.json"
@@ -18,6 +19,7 @@
     "Data",
     "Profiles",
     "Models/Weights",
-    "Logs"
+    "Logs",
+    "YoloWorker"
   ]
 }
