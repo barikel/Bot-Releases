@@ -1,15 +1,15 @@
 {
-  "version": "2.4.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.4.0/AuthorizedWebView2Rpa-2.4.0-win-x64.zip",
-  "sha256": "370dcd1054da1a0150424ab14097dfb6c80ef2194ff5dc92b478d64b7401e13f",
-  "fileSize": 422943614,
+  "version": "2.5.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.5.0/AuthorizedWebView2Rpa-2.5.0-win-x64.zip",
+  "sha256": "567d4bf924000901d3187d58e4157e68add8198db9a1d89e2613d8bb15441000",
+  "fileSize": 422987827,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono błąd ObjectDisposedException podczas zamykania aplikacji",
-    "Procedura zamykania działa tylko raz i bezpiecznie odłącza wszystkie handlery",
-    "Patch 2.3.1 służy również do rzeczywistego testu natywnego UpdaterHost.exe",
-    "Patrol, ROI, YOLO, WebView2 i ustawienia użytkownika pozostają bez zmian"
+    "Dodano hybrydową detekcję YOLO i OpenCV Template Matching",
+    "Dodano lokalne wzorce PNG, temporary ID oraz izolowaną procedurę obiektów priorytetowych",
+    "Rozbudowano patrol mini-mapy i kontrolę dystansu",
+    "Zmieniono opisy ROI na Przycisk Naprawy, Przycisk Ataku i Przycisk Przesunięcia Mapy"
   ],
   "filesToPreserve": [
     "config.json"
