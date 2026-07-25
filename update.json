@@ -1,15 +1,15 @@
 {
-  "version": "2.5.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.5.0/AuthorizedWebView2Rpa-2.5.0-win-x64.zip",
-  "sha256": "34511b7af98b21b8a66b60dbf0f23a3bfaab15b8ea1923e15c3272a24a8f6b63",
-  "fileSize": 422987808,
+  "version": "2.5.1",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.5.1/AuthorizedWebView2Rpa-2.5.1-win-x64.zip",
+  "sha256": "915f3c5dca0a06a9a9568c90b19a1c874ad6e5adce266088a3a56680f82ee532",
+  "fileSize": 422996882,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Dodano hybrydową detekcję YOLO i OpenCV Template Matching",
-    "Dodano lokalne wzorce PNG, temporary ID oraz izolowaną procedurę obiektów priorytetowych",
-    "Rozbudowano patrol mini-mapy i kontrolę dystansu",
-    "Zmieniono opisy ROI na Przycisk Naprawy, Przycisk Ataku i Przycisk Przesunięcia Mapy"
+    "Naprawiono ponawianie ataku aktywnego celu w kontrolowanych odstępach",
+    "Poprawiono kierunek stabilizacji pływania dla zbyt bliskiego i zbyt odległego celu",
+    "Pętla NPC przeplata ponowienia ataku z korektami kursu",
+    "Dodano tolerancję krótkiej utraty detekcji i konfigurowalne timery ataku oraz pływania"
   ],
   "filesToPreserve": [
     "config.json"
