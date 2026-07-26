@@ -1,15 +1,15 @@
 {
-  "version": "2.5.1",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.5.1/AuthorizedWebView2Rpa-2.5.1-win-x64.zip",
-  "sha256": "0342fe4f8b7a221a842abcb0db66f78776772f57f89abbc2ea38905bc5462e95",
-  "fileSize": 422996342,
+  "version": "2.7.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.0/AuthorizedWebView2Rpa-2.7.0-win-x64.zip",
+  "sha256": "1ffb34d4b06dc27d3233c7eae1f8684ae2167859d62140d326bf652a0a51a9dd",
+  "fileSize": 423021310,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono ponawianie ataku aktywnego celu w kontrolowanych odstępach",
-    "Poprawiono kierunek stabilizacji pływania dla zbyt bliskiego i zbyt odległego celu",
-    "Pętla NPC przeplata ponowienia ataku z korektami kursu",
-    "Dodano tolerancję krótkiej utraty detekcji i konfigurowalne timery ataku oraz pływania"
+    "Podzielono OpenCV na osobne procedury NPC, potworów, zasobów i okienek",
+    "Dodano wiele PNG z miniaturami, indywidualnymi progami i ROI",
+    "Przyspieszono śledzenie ruchomych celów oraz dodano warunki trwającej walki NPC",
+    "Dodano konfigurowalne suwaki czasów reakcji, ataku, pływania i patrolu"
   ],
   "filesToPreserve": [
     "config.json"
