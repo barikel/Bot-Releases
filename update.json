@@ -1,15 +1,16 @@
 {
-  "version": "2.7.2",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.2/AuthorizedWebView2Rpa-2.7.2-win-x64.zip",
-  "sha256": "a21c2da9969b19d5f79196256685cdf502208c4389e159c5e8aad0cbb4f7d897",
-  "fileSize": 423029550,
+  "version": "2.8.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.8.0/AuthorizedWebView2Rpa-2.8.0-win-x64.zip",
+  "sha256": "1158d4c4fb0c0f4637785936b663056abd18a398f8ad8438a4074f7917da06be",
+  "fileSize": 452633941,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Aktualizacja zachowuje config.json, wzorce PNG OpenCV, profile, model best.pt i pozostałe dane użytkownika",
-    "Dodano transakcyjny test zachowania plików użytkownika podczas rzeczywistej aktualizacji",
-    "Katalog YoloWorker nie jest już zachowywany, dzięki czemu silnik detekcji zawsze otrzymuje najnowsze poprawki",
-    "Rozszerzono ochronę katalogów zrzutów, szablonów, kopii bezpieczeństwa i danych użytkownika"
+    "Dodano osobny PlayerShipAnchorROI; CenterShipROI pozostaje wyłącznie przyciskiem centrowania kamery",
+    "Wprowadzono pipeline najnowszej klatki, JPEG i pamięć współdzieloną bez Base64",
+    "Dodano automatyczny backend DirectML GPU z fallbackiem CPU oraz dwupoziomowe skanowanie YOLO",
+    "Dodano predykcyjne śledzenie, ranking stabilności i optyczne potwierdzanie ruchu patrolu",
+    "Aktualizacja nadal zachowuje config.json, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
   ],
   "filesToPreserve": [
     "config.json"
