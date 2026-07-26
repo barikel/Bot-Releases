@@ -1,15 +1,15 @@
 {
-  "version": "2.7.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.0/AuthorizedWebView2Rpa-2.7.0-win-x64.zip",
-  "sha256": "1ffb34d4b06dc27d3233c7eae1f8684ae2167859d62140d326bf652a0a51a9dd",
-  "fileSize": 423021310,
+  "version": "2.7.1",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.1/AuthorizedWebView2Rpa-2.7.1-win-x64.zip",
+  "sha256": "9b5ab9cc5f283141f9b7cedc2bf02302d1b9985e115f52819a27945a3c8ae625",
+  "fileSize": 423029246,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Podzielono OpenCV na osobne procedury NPC, potworów, zasobów i okienek",
-    "Dodano wiele PNG z miniaturami, indywidualnymi progami i ROI",
-    "Przyspieszono śledzenie ruchomych celów oraz dodano warunki trwającej walki NPC",
-    "Dodano konfigurowalne suwaki czasów reakcji, ataku, pływania i patrolu"
+    "Naprawiono powrót z ataku do podpływania, gdy cel ponownie się oddali",
+    "OpenCV wykrywa wiele obiektów jednego wzorca i dopasowuje kilka skal z NMS",
+    "Ulepszono wybór celu, śledzenie temporary ID i okresowe skany YOLO",
+    "Dodano sektorowy patrol z pamięcią odwiedzonych obszarów i potwierdzeniem ruchu"
   ],
   "filesToPreserve": [
     "config.json"
