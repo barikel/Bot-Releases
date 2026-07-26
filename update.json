@@ -1,15 +1,15 @@
 {
-  "version": "2.7.1",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.1/AuthorizedWebView2Rpa-2.7.1-win-x64.zip",
-  "sha256": "9b5ab9cc5f283141f9b7cedc2bf02302d1b9985e115f52819a27945a3c8ae625",
-  "fileSize": 423029246,
+  "version": "2.7.2",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.7.2/AuthorizedWebView2Rpa-2.7.2-win-x64.zip",
+  "sha256": "a21c2da9969b19d5f79196256685cdf502208c4389e159c5e8aad0cbb4f7d897",
+  "fileSize": 423029550,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono powrót z ataku do podpływania, gdy cel ponownie się oddali",
-    "OpenCV wykrywa wiele obiektów jednego wzorca i dopasowuje kilka skal z NMS",
-    "Ulepszono wybór celu, śledzenie temporary ID i okresowe skany YOLO",
-    "Dodano sektorowy patrol z pamięcią odwiedzonych obszarów i potwierdzeniem ruchu"
+    "Aktualizacja zachowuje config.json, wzorce PNG OpenCV, profile, model best.pt i pozostałe dane użytkownika",
+    "Dodano transakcyjny test zachowania plików użytkownika podczas rzeczywistej aktualizacji",
+    "Katalog YoloWorker nie jest już zachowywany, dzięki czemu silnik detekcji zawsze otrzymuje najnowsze poprawki",
+    "Rozszerzono ochronę katalogów zrzutów, szablonów, kopii bezpieczeństwa i danych użytkownika"
   ],
   "filesToPreserve": [
     "config.json"
@@ -17,8 +17,12 @@
   "directoriesToPreserve": [
     "Data",
     "Profiles",
-    "Models/Weights",
+    "Models",
     "Logs",
-    "YoloWorker"
+    "Screenshots",
+    "Captures",
+    "Templates",
+    "UserData",
+    "Backups"
   ]
 }
