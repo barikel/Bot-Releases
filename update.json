@@ -1,17 +1,16 @@
 {
-  "version": "2.10.1",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.10.1/AuthorizedWebView2Rpa-2.10.1-win-x64.zip",
-  "sha256": "865ac6cc2bf8c3e110cc21c3c34056fdf330047d694526da7b0dab6139634753",
-  "fileSize": 478969541,
+  "version": "2.11.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.11.0/AuthorizedWebView2Rpa-2.11.0-win-x64.zip",
+  "sha256": "b2dde2e9a740620f7d1ca170ced0a240c09bd8d2a36b6a5f7654e074566c7340",
+  "fileSize": 378983418,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Dodano opcjonalne wyszukiwanie statków po widocznej nazwie z użyciem OCR",
-    "Dodano osobną tabelkę nazw NPC oraz osobną tabelkę nazw potworów",
-    "Każdy wpis ma checkbox, próg podobieństwa i przesunięcie punktu celu względem napisu",
-    "Rozpoznana nazwa trafia do istniejącej blokady CSRT, predykcji Kalmana i lokalnej redetekcji",
-    "YOLO i dotychczasowe wzorce PNG OpenCV nadal działają równolegle i mają pierwszeństwo",
-    "Aktualizacja nadal zachowuje config.json, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
+    "Usunięto silnik YOLO, ultralytics, ONNX i obsługę modelu best.pt",
+    "Detekcja działa wyłącznie przez wzorce PNG OpenCV oraz OCR nazw",
+    "Pozostawiono CSRT, filtr Kalmana i lokalną redetekcję ruchomego celu",
+    "Dodano opcjonalny krzyżyk pokazujący aktualny punkt kliknięcia OCR",
+    "Aktualizator usuwa stare katalogi YoloWorker i Models"
   ],
   "filesToPreserve": [
     "config.json"
@@ -19,7 +18,6 @@
   "directoriesToPreserve": [
     "Data",
     "Profiles",
-    "Models",
     "Logs",
     "Screenshots",
     "Captures",
