@@ -6,10 +6,10 @@
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Dodano osobny PlayerShipAnchorROI; CenterShipROI pozostaje wyłącznie przyciskiem centrowania kamery",
-    "Wprowadzono pipeline najnowszej klatki, JPEG i pamięć współdzieloną bez Base64",
-    "Dodano automatyczny backend DirectML GPU z fallbackiem CPU oraz dwupoziomowe skanowanie YOLO",
-    "Dodano predykcyjne śledzenie, ranking stabilności i optyczne potwierdzanie ruchu patrolu",
+    "Naprawiono natychmiastowe przechwytywanie i kliknięcie wykrytych błyskotek oraz skrzyń",
+    "Dodano obrót wzorców i dopasowanie krawędziowe dla szybko poruszających się NPC i potworów",
+    "Dodano lokalne śledzenie, dłuższą pamięć krótkich zaników i stabilizację niezależną od zmiennego temporaryId",
+    "NPC są klikane w przewidywany punkt ruchu, a log pokazuje najlepszy wynik poniżej progu wraz z kątem i skalą",
     "Aktualizacja nadal zachowuje config.json, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
   ],
   "filesToPreserve": [
