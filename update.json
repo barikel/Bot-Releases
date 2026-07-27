@@ -1,17 +1,17 @@
 {
   "version": "2.10.1",
   "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.10.1/AuthorizedWebView2Rpa-2.10.1-win-x64.zip",
-  "sha256": "aa1b0cf0df71b23a3acd6e6bf862671a86177ecebd28787d48abf69e9b0e7f09",
-  "fileSize": 479476009,
+  "sha256": "865ac6cc2bf8c3e110cc21c3c34056fdf330047d694526da7b0dab6139634753",
+  "fileSize": 478969541,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono sytuację, w której OpenCV wykrywał NPC, ale automat pozostawał w IDLE i kontynuował patrol",
-    "NPC lub potwór OpenCV z wysoką pewnością może zostać zablokowany po pierwszym wiarygodnym trafieniu",
-    "Słabsze detekcje nadal wymagają potwierdzenia, a pamięć ruchomego kandydata została wydłużona do 12 sekund",
-    "Dodano logi TARGET-FAST-LOCK i TARGET-CANDIDATE pokazujące dokładną decyzję wyboru celu",
-    "Zachowano wymagania ROI 0×0 oraz istniejące YOLO, OCR, CSRT, Kalman i kliknięcia WebView2/CDP",
-    "Aktualizacja zachowuje config.json, dane OCR, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
+    "Dodano opcjonalne wyszukiwanie statków po widocznej nazwie z użyciem OCR",
+    "Dodano osobną tabelkę nazw NPC oraz osobną tabelkę nazw potworów",
+    "Każdy wpis ma checkbox, próg podobieństwa i przesunięcie punktu celu względem napisu",
+    "Rozpoznana nazwa trafia do istniejącej blokady CSRT, predykcji Kalmana i lokalnej redetekcji",
+    "YOLO i dotychczasowe wzorce PNG OpenCV nadal działają równolegle i mają pierwszeństwo",
+    "Aktualizacja nadal zachowuje config.json, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
   ],
   "filesToPreserve": [
     "config.json"
