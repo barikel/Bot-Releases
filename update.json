@@ -1,15 +1,16 @@
 {
-  "version": "2.8.1",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.8.1/AuthorizedWebView2Rpa-2.8.1-win-x64.zip",
-  "sha256": "2f0e12a5d75f61c7f4f19569255d1c392169347dbdd5dc39182177bee9289be7",
-  "fileSize": 452648141,
+  "version": "2.9.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.9.0/AuthorizedWebView2Rpa-2.9.0-win-x64.zip",
+  "sha256": "7fb636330130da236451c732e56157cea920b4597b825580c11c8b4880565401",
+  "fileSize": 440909816,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Naprawiono natychmiastowe przechwytywanie i kliknięcie wykrytych błyskotek oraz skrzyń",
-    "Dodano obrót wzorców i dopasowanie krawędziowe dla szybko poruszających się NPC i potworów",
-    "Dodano lokalne śledzenie, dłuższą pamięć krótkich zaników i stabilizację niezależną od zmiennego temporaryId",
-    "NPC są klikane w przewidywany punkt ruchu, a log pokazuje najlepszy wynik poniżej progu wraz z kątem i skalą",
+    "Dodano trwałą blokadę jednego NPC lub potwora aż do potwierdzonej eliminacji",
+    "Dodano tracker CSRT aktualizujący BoundingBox ruchomego i obracającego się celu",
+    "Dodano filtr Kalmana, przewidywany punkt kliknięcia oraz lokalną redetekcję rosnącego obszaru",
+    "Dodano wieloetapową weryfikację eliminacji i wirtualną nakładkę stanu celu",
+    "Dodano zakładkę Info z czasem pracy i licznikami zasobów, NPC oraz potworów",
     "Aktualizacja nadal zachowuje config.json, PNG OpenCV, profile, Models z best.pt i dane użytkownika"
   ],
   "filesToPreserve": [
