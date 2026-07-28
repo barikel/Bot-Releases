@@ -6,11 +6,12 @@
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Usunięto silnik YOLO, ultralytics, ONNX i obsługę modelu best.pt",
-    "Detekcja działa wyłącznie przez wzorce PNG OpenCV oraz OCR nazw",
-    "Pozostawiono CSRT, filtr Kalmana i lokalną redetekcję ruchomego celu",
-    "Dodano opcjonalny krzyżyk pokazujący aktualny punkt kliknięcia OCR",
-    "Aktualizator usuwa stare katalogi YoloWorker i Models"
+    "OCR jest teraz głównym trybem wyszukiwania NPC i potworów",
+    "Usunięto z widocznego interfejsu stary panel, tabelki, opcje i napisy związane z YOLO oraz best.pt",
+    "OCR skanuje każdą analizowaną klatkę i natychmiast klika punkt Y+ względem rozpoznanej nazwy",
+    "Cel OCR pomija przesunięcie widoku oraz podejście i przechodzi bezpośrednio do trybu ataku",
+    "Wyłączono humanizowane opóźnienia wejścia oraz zwiększono przechwytywanie i analizę do 24 FPS",
+    "Zachowano śledzenie CSRT, filtr Kalmana i lokalną redetekcję po przejęciu ruchomego celu"
   ],
   "filesToPreserve": [
     "config.json"
