@@ -1,17 +1,19 @@
 {
-  "version": "2.12.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.12.0/AuthorizedWebView2Rpa-2.12.0-win-x64.zip",
-  "sha256": "6aa92e71ab5a82d0cfb8e124d7b969a064fc5f17a89b3ec2ddecf2a21c1238b8",
-  "fileSize": 378972361,
+  "version": "2.13.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.13.0/AuthorizedWebView2Rpa-2.13.0-win-x64.zip",
+  "sha256": "d55766e36946fc21c1dc14758c6531c0df73a52277dd8f7fa104215f42b5a234",
+  "fileSize": 379995325,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "OCR jest teraz głównym trybem wyszukiwania NPC i potworów",
-    "Usunięto z widocznego interfejsu stary panel, tabelki, opcje i napisy związane z YOLO oraz best.pt",
-    "OCR skanuje każdą analizowaną klatkę i natychmiast klika punkt Y+ względem rozpoznanej nazwy",
-    "Cel OCR pomija przesunięcie widoku oraz podejście i przechodzi bezpośrednio do trybu ataku",
-    "Wyłączono humanizowane opóźnienia wejścia oraz zwiększono przechwytywanie i analizę do 24 FPS",
-    "Zachowano śledzenie CSRT, filtr Kalmana i lokalną redetekcję po przejęciu ruchomego celu"
+    "Jedna najnowsza klatka zasila OCR, detektor zasobów, wzorce PNG i śledzenie bez kolejki starych obrazów",
+    "Klik celu jest blokowany, dopóki pozycja nie ma maksymalnie 120 ms i co najmniej dwóch potwierdzeń",
+    "Dodano szybki tracker KCF lub MOSSE z dokładnym fallbackiem CSRT i predykcją Kalmana",
+    "Rozdzielono stany walki NPC i potworów od zbierania błyskotek oraz skrzyń",
+    "Dodano szybkie wykrywanie błyskotek przez jasność, kolor i zmianę pomiędzy klatkami",
+    "OCR, PNG i detektor błyskotek korzystają ze wspólnego modelu celu",
+    "Priorytety: powrót i okna, aktywna walka, pobliski zasób, NPC, potwór, patrol",
+    "Częstotliwości są adaptacyjne: tracker 24 FPS, zasoby 16 FPS, OCR 8 lub 3 FPS, PNG 4 lub 12 FPS"
   ],
   "filesToPreserve": [
     "config.json"
