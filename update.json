@@ -1,19 +1,22 @@
 {
-  "version": "2.13.0",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.13.0/AuthorizedWebView2Rpa-2.13.0-win-x64.zip",
-  "sha256": "05207156c68f1ad6d843aabfc25299e6cc5eceb7ad781a16a4209054199523be",
-  "fileSize": 379995388,
+  "version": "2.14.0",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.0/AuthorizedWebView2Rpa-2.14.0-win-x64.zip",
+  "sha256": "5735ebdf5d92a78236479bccd16456cf2e0ea21e1cf8f3d7faf5a0842ae2a02e",
+  "fileSize": 380039837,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Jedna najnowsza klatka zasila OCR, detektor zasobów, wzorce PNG i śledzenie bez kolejki starych obrazów",
-    "Klik celu jest blokowany, dopóki pozycja nie ma maksymalnie 120 ms i co najmniej dwóch potwierdzeń",
-    "Dodano szybki tracker KCF lub MOSSE z dokładnym fallbackiem CSRT i predykcją Kalmana",
-    "Rozdzielono stany walki NPC i potworów od zbierania błyskotek oraz skrzyń",
-    "Dodano szybkie wykrywanie błyskotek przez jasność, kolor i zmianę pomiędzy klatkami",
-    "OCR, PNG i detektor błyskotek korzystają ze wspólnego modelu celu",
-    "Priorytety: powrót i okna, aktywna walka, pobliski zasób, NPC, potwór, patrol",
-    "Częstotliwości są adaptacyjne: tracker 24 FPS, zasoby 16 FPS, OCR 8 lub 3 FPS, PNG 4 lub 12 FPS"
+    "Program potwierdza zaznaczenie NPC lub potwora przed rozpoczęciem ataku i ponawia błędne kliknięcie",
+    "Klik Y kalibruje się automatycznie i jest zapisywany osobno dla każdej nazwy OCR",
+    "OCR analizuje dynamiczne obszary podobne do napisów zamiast całego morza",
+    "Dodano trwałą pamięć obiektów, ich ruchu, błędnych kliknięć i czasowych blokad",
+    "Detektor błyskotek automatycznie uczy się jasności oraz koloru wody na bieżącej mapie",
+    "Kolejność priorytetów zasobów, NPC i potworów można ustawić w interfejsie",
+    "Profile Szybki, Zrównoważony i Oszczędny automatycznie dopasowują obciążenie",
+    "Watchdog resetuje zablokowany tracker i ponownie uruchamia VisionWorker po awarii",
+    "Bufor diagnostyczny zapisuje ostatnie 15 sekund klatek wyłącznie po wystąpieniu błędu",
+    "Opcjonalna nakładka pokazuje stan celu, świeżość pozycji, tracker, wydajność i gotowość",
+    "Kreator pierwszej konfiguracji sprawdza ROI, nazwy OCR, Klik Y, zasoby i tracker"
   ],
   "filesToPreserve": [
     "config.json"
@@ -26,6 +29,7 @@
     "Captures",
     "Templates",
     "UserData",
-    "Backups"
+    "Backups",
+    "Diagnostics"
   ]
 }
