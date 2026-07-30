@@ -1,0 +1,218 @@
+name: Build and publish application
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: public-release-build
+  cancel-in-progress: false
+
+env:
+  PYTHONUTF8: '1'
+  PYTHONIOENCODING: utf-8
+  VERSION: '2.14.4'
+  PACKAGE_NAME: AuthorizedWebView2Rpa-2.14.4-win-x64.zip
+  MAIN_EXE: AuthorizedWebView2Rpa.exe
+
+jobs:
+  publish:
+    runs-on: windows-2022
+    env:
+      SOURCE_TOKEN: ${{ secrets.BOT_SOURCE_TOKEN || secrets.BOT_RELEASES_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Verify private-source token
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:SOURCE_TOKEN)) {
+            throw 'Missing BOT_SOURCE_TOKEN. Add a fine-grained token with Contents: Read access to barikel/Bot.'
+          }
+
+      - name: Checkout release repository
+        uses: actions/checkout@v4
+        with:
+          path: release-repo
+
+      - name: Checkout private application source
+        uses: actions/checkout@v4
+        with:
+          repository: barikel/Bot
+          ref: main
+          token: ${{ env.SOURCE_TOKEN }}
+          path: source
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            source/requirements-vision.txt
+            source/requirements-build.txt
+
+      - name: Verify source version
+        shell: pwsh
+        working-directory: source
+        run: |
+          $project = Get-Content AuthorizedWebView2Rpa.csproj -Raw
+          if ($project -notmatch '<Version>\s*2\.14\.4\s*</Version>') {
+            throw 'Private source is not version 2.14.4.'
+          }
+          Get-Content config.json -Raw | ConvertFrom-Json | Out-Null
+          [xml](Get-Content MainWindow.xaml -Raw) | Out-Null
+          [xml](Get-Content App.xaml -Raw) | Out-Null
+
+      - name: Install and validate vision dependencies
+        shell: pwsh
+        working-directory: source
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r requirements-vision.txt -r requirements-build.txt
+          python -m pip uninstall -y opencv-python opencv-python-headless
+          python -m pip install --force-reinstall --no-cache-dir --no-deps "opencv-contrib-python-headless>=4.10,<5"
+          python -c "import cv2; assert hasattr(cv2,'TrackerCSRT_create') or hasattr(getattr(cv2,'legacy',None),'TrackerCSRT_create')"
+          python -m py_compile YoloWorker/vision_worker.py YoloWorker/unified_vision_worker.py YoloWorker/unified_vision.py YoloWorker/adaptive_reliability.py YoloWorker/resource_detector.py YoloWorker/modal_dialog.py YoloWorker/recovery_dialog.py YoloWorker/selection_ring.py YoloWorker/ship_status.py YoloWorker/adaptive_tracking.py YoloWorker/name_ocr.py YoloWorker/template_matching.py YoloWorker/target_tracking.py Build/vision_worker_runtime_hook.py
+
+      - name: Build portable VisionWorker
+        shell: pwsh
+        working-directory: source
+        run: |
+          python -m PyInstaller --noconfirm --clean --onedir --console --noupx `
+            --name VisionWorker --contents-directory runtime `
+            --distpath artifacts/python-dist --workpath artifacts/python-work --specpath artifacts/python-spec `
+            --runtime-hook Build/vision_worker_runtime_hook.py `
+            --collect-all easyocr --collect-all torch --collect-all torchvision --collect-all cv2 `
+            --copy-metadata easyocr `
+            --hidden-import vision_worker --hidden-import unified_vision --hidden-import adaptive_reliability `
+            --hidden-import resource_detector --hidden-import modal_dialog --hidden-import recovery_dialog `
+            --hidden-import selection_ring --hidden-import ship_status --hidden-import adaptive_tracking `
+            --hidden-import name_ocr --hidden-import template_matching --hidden-import target_tracking `
+            YoloWorker/unified_vision_worker.py
+          if (!(Test-Path artifacts/python-dist/VisionWorker/VisionWorker.exe)) {
+            throw 'Missing VisionWorker.exe.'
+          }
+
+      - name: Smoke test packaged VisionWorker
+        shell: pwsh
+        working-directory: source
+        run: |
+          $smoke = Join-Path $env:RUNNER_TEMP "vision-smoke-$env:GITHUB_RUN_ID"
+          New-Item -ItemType Directory -Path $smoke -Force | Out-Null
+          New-Item -ItemType Directory -Path (Join-Path $smoke 'Data') -Force | Out-Null
+          @{
+            hybridDetection = @{ enabled = $false; catalogPath = 'Data/opencv_templates.json' }
+            nameOcr = @{ enabled = $false; npcNames = @(); monsterNames = @() }
+            resourceDetection = @{ enabled = $false }
+            targetTracking = @{ enableFastTracking = $true; enableCsrtTracking = $true; enableKalmanPrediction = $true }
+            unifiedVision = @{ captureFps = 5; trackerFps = 5; pngFullFps = 1; pngLocalFps = 5; ocrSearchFps = 1; ocrTrackingFps = 2; resourceFps = 1 }
+            adaptiveReliability = @{ enabled = $true; dynamicOcrRoiEnabled = $true }
+          } | ConvertTo-Json -Depth 8 | Set-Content (Join-Path $smoke 'config.json') -Encoding utf8
+          python -c "import cv2,base64,json,subprocess,pathlib,numpy as np; root=pathlib.Path(r'$smoke'); ok,data=cv2.imencode('.jpg',255*np.ones((240,320,3),dtype='uint8')); assert ok; p=subprocess.Popen([r'artifacts/python-dist/VisionWorker/VisionWorker.exe','--config',str(root/'config.json')],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True); ready=json.loads(p.stdout.readline()); assert ready.get('ok') is True,ready; req={'id':1,'command':'predict','imageBase64':base64.b64encode(data.tobytes()).decode(),'mainSeaRoi':{'x':0,'y':0,'width':320,'height':240},'recoverySearchRoi':{'x':0,'y':0,'width':320,'height':240},'roiCoordinateSpace':{'width':320,'height':240},'tracking':None}; p.stdin.write(json.dumps(req)+'\n'); p.stdin.flush(); response=json.loads(p.stdout.readline()); assert response.get('ok') is True,response; p.stdin.write(json.dumps({'id':2,'command':'shutdown'})+'\n'); p.stdin.flush(); p.wait(timeout=30); assert p.returncode==0,p.stderr.read()"
+
+      - name: Publish WPF application and updater
+        shell: pwsh
+        working-directory: source
+        run: |
+          dotnet restore AuthorizedWebView2Rpa.csproj -r win-x64
+          dotnet publish AuthorizedWebView2Rpa.csproj -c Release -r win-x64 --self-contained true --no-restore `
+            -p:Platform=x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:PublishTrimmed=false -p:PublishReadyToRun=false -p:DebugType=None -p:DebugSymbols=false `
+            -o artifacts/app
+          dotnet restore UpdaterHost/UpdaterHost.csproj -r win-x64
+          dotnet publish UpdaterHost/UpdaterHost.csproj -c Release -r win-x64 --self-contained true --no-restore `
+            -p:Platform=x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:PublishTrimmed=false -p:DebugType=None -p:DebugSymbols=false `
+            -o artifacts/updater
+          if (!(Test-Path artifacts/app/AuthorizedWebView2Rpa.exe)) { throw 'Missing application EXE.' }
+          if (!(Test-Path artifacts/updater/UpdaterHost.exe)) { throw 'Missing updater EXE.' }
+          $version = ([Version](Get-Item artifacts/app/AuthorizedWebView2Rpa.exe).VersionInfo.FileVersion).ToString(3)
+          if ($version -ne $env:VERSION) { throw "Built EXE version is $version." }
+
+      - name: Assemble package and manifest
+        shell: pwsh
+        working-directory: source
+        run: |
+          $root = 'artifacts/package'
+          New-Item -ItemType Directory -Path $root -Force | Out-Null
+          Copy-Item artifacts/app/* $root -Recurse -Force
+          Copy-Item artifacts/updater/UpdaterHost.exe "$root/UpdaterHost.exe" -Force
+          New-Item -ItemType Directory -Path "$root/VisionWorker" -Force | Out-Null
+          Copy-Item artifacts/python-dist/VisionWorker/* "$root/VisionWorker" -Recurse -Force
+          if (Test-Path Deployment/SPRAWDZ_WEBVIEW2_I_URUCHOM.bat) { Copy-Item Deployment/SPRAWDZ_WEBVIEW2_I_URUCHOM.bat $root -Force }
+          if (Test-Path Deployment/README_URUCHOMIENIE.txt) { Copy-Item Deployment/README_URUCHOMIENIE.txt $root -Force }
+          if (Test-Path "$root/Models") { throw 'Legacy Models directory detected.' }
+          if (Get-ChildItem $root -Recurse -File | Where-Object { $_.Name -match 'best\.pt|ultralytics|onnxruntime' }) {
+            throw 'Legacy inference artifact detected.'
+          }
+          $zip = "artifacts/$env:PACKAGE_NAME"
+          Compress-Archive -Path "$root/*" -DestinationPath $zip -CompressionLevel Optimal
+          $sha = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          $size = (Get-Item $zip).Length
+          $manifest = [ordered]@{
+            version = $env:VERSION
+            downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$env:VERSION/$env:PACKAGE_NAME"
+            sha256 = $sha
+            fileSize = $size
+            mandatory = $false
+            mainExecutable = $env:MAIN_EXE
+            releaseNotes = @(
+              'Naprawiono uruchamianie VisionWorker oraz brak odpowiedzi po naciśnięciu Start',
+              'EasyOCR działa w odizolowanym procesie i nie zatrzymuje OpenCV ani trackera',
+              'NPC z aktywną listą nazw są wybierane przez OCR zamiast starego wzorca kadłuba',
+              'STOP zamyka worker, a następny START wczytuje aktualne ustawienia',
+              'Poprawiono błyskotki, skrzynie, pierścień zaznaczenia, naprawę statku i powrót po zatopieniu'
+            )
+            filesToPreserve = @('config.json')
+            directoriesToPreserve = @('Data','Profiles','Logs','Screenshots','Captures','Templates','UserData','Backups','Diagnostics')
+          }
+          $manifest | ConvertTo-Json -Depth 8 | Set-Content artifacts/update.json -Encoding utf8
+          "$sha  $env:PACKAGE_NAME" | Set-Content "artifacts/$env:PACKAGE_NAME.sha256" -Encoding ascii
+          "PACKAGE_SHA=$sha" | Out-File $env:GITHUB_ENV -Append
+          "PACKAGE_SIZE=$size" | Out-File $env:GITHUB_ENV -Append
+
+      - name: Publish GitHub release
+        shell: pwsh
+        working-directory: source
+        run: |
+          gh release view "v$env:VERSION" --repo "${{ github.repository }}" *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release delete "v$env:VERSION" --repo "${{ github.repository }}" --cleanup-tag -y
+          }
+          gh release create "v$env:VERSION" `
+            "artifacts/$env:PACKAGE_NAME" `
+            "artifacts/$env:PACKAGE_NAME.sha256" `
+            --repo "${{ github.repository }}" `
+            --target main `
+            --title "AuthorizedWebView2Rpa $env:VERSION" `
+            --notes "Pełna aktualizacja OCR/OpenCV 2.14.4 z naprawionym VisionWorker, EasyOCR, śledzeniem i aktualizatorem."
+
+      - name: Publish update manifest
+        shell: pwsh
+        run: |
+          Copy-Item source/artifacts/update.json release-repo/update.json -Force
+          Set-Location release-repo
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add update.json
+          git commit -m "publish update manifest v$env:VERSION" || exit 0
+          git push
+
+      - name: Verify published asset
+        shell: pwsh
+        run: |
+          $release = gh release view "v$env:VERSION" --repo "${{ github.repository }}" --json assets | ConvertFrom-Json
+          $asset = $release.assets | Where-Object { $_.name -eq $env:PACKAGE_NAME }
+          if ($null -eq $asset) { throw 'Published ZIP asset was not found.' }
+          if ([long]$asset.size -ne [long]$env:PACKAGE_SIZE) { throw 'Published asset size is incorrect.' }
+          $manifest = Get-Content release-repo/update.json -Raw | ConvertFrom-Json
+          if ($manifest.version -ne $env:VERSION -or $manifest.sha256 -ne $env:PACKAGE_SHA) {
+            throw 'Published manifest verification failed.'
+          }
