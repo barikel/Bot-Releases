@@ -1,0 +1,39 @@
+name: Verify private source access
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/source-access-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_TOKEN: ${{ secrets.BOT_RELEASES_TOKEN }}
+    steps:
+      - name: Verify release token exists
+        shell: bash
+        run: |
+          if [ -z "$SOURCE_TOKEN" ]; then
+            echo "BOT_RELEASES_TOKEN is not configured in Bot-Releases."
+            exit 2
+          fi
+          echo "Release token is configured."
+
+      - name: Checkout private application source
+        uses: actions/checkout@v4
+        with:
+          repository: barikel/Bot
+          ref: main
+          token: ${{ secrets.BOT_RELEASES_TOKEN }}
+          path: source
+
+      - name: Verify application version
+        shell: bash
+        run: |
+          grep -q '<Version>2.14.4</Version>' source/AuthorizedWebView2Rpa.csproj
+          echo "Private source 2.14.4 is accessible."
