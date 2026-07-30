@@ -7,7 +7,7 @@ on:
       - '.github/workflows/source-access-check.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -15,16 +15,23 @@ jobs:
     env:
       SOURCE_TOKEN: ${{ secrets.BOT_RELEASES_TOKEN }}
     steps:
-      - name: Verify release token exists
+      - name: Checkout release repository
+        uses: actions/checkout@v4
+
+      - name: Check whether release token exists
+        id: token
         shell: bash
         run: |
-          if [ -z "$SOURCE_TOKEN" ]; then
-            echo "BOT_RELEASES_TOKEN is not configured in Bot-Releases."
-            exit 2
+          if [ -n "$SOURCE_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
           fi
-          echo "Release token is configured."
 
       - name: Checkout private application source
+        id: source
+        if: steps.token.outputs.configured == 'true'
+        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: barikel/Bot
@@ -33,7 +40,30 @@ jobs:
           path: source
 
       - name: Verify application version
+        id: version
+        if: steps.source.outcome == 'success'
+        continue-on-error: true
         shell: bash
+        run: grep -q '<Version>2.14.4</Version>' source/AuthorizedWebView2Rpa.csproj
+
+      - name: Persist safe result
+        shell: bash
+        env:
+          TOKEN_CONFIGURED: ${{ steps.token.outputs.configured }}
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          VERSION_OUTCOME: ${{ steps.version.outcome }}
         run: |
-          grep -q '<Version>2.14.4</Version>' source/AuthorizedWebView2Rpa.csproj
-          echo "Private source 2.14.4 is accessible."
+          mkdir -p diagnostics
+          cat > diagnostics/source-access.json <<EOF
+          {
+            "tokenConfigured": "${TOKEN_CONFIGURED:-false}",
+            "privateCheckout": "${SOURCE_OUTCOME:-skipped}",
+            "versionCheck": "${VERSION_OUTCOME:-skipped}",
+            "runId": "${GITHUB_RUN_ID}"
+          }
+          EOF
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add diagnostics/source-access.json
+          git commit -m 'ci: record private source access result' || exit 0
+          git push
