@@ -1,0 +1,41 @@
+name: Verify private action access
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/private-action-access-check.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release repository
+        uses: actions/checkout@v4
+
+      - name: Load private application action
+        id: private_action
+        continue-on-error: true
+        uses: barikel/Bot/.github/actions/public-runner-access@main
+
+      - name: Persist result
+        if: always()
+        shell: bash
+        env:
+          ACTION_OUTCOME: ${{ steps.private_action.outcome }}
+        run: |
+          mkdir -p diagnostics
+          cat > diagnostics/private-action-access.json <<EOF
+          {
+            "privateAction": "${ACTION_OUTCOME:-unavailable}",
+            "runId": "${GITHUB_RUN_ID}"
+          }
+          EOF
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add diagnostics/private-action-access.json
+          git commit -m 'ci: record private action access result' || exit 0
+          git push
