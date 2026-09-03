@@ -1,61 +1,25 @@
 {
-  "version": "2.14.10",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.10/SFB26-2.14.10-win-x64.zip",
-  "sha256": "a9331afb7265c901dc5d3dba40b4650729f99e1f15c846531605c7dd44ad01a0",
-  "fileSize": 380308348,
-  "mandatory": false,
-  "mainExecutable": "SFB26.exe",
-  "releaseNotes": [
-    "OCR nazw NPC z tabeli działa szybciej i używa pamięci wizualnej tylko dla włączonych nazw",
-    "Aktywny NPC zachowuje jedno wewnętrzne ID aż do stabilnego zakończenia walki",
-    "Czerwony panel celu po lewej stronie mapy potwierdza trwanie i zakończenie ataku",
-    "Statek odsuwa się od zbliżającego NPC i ponawia atak jeden raz po korekcie dystansu",
-    "Naprawa wykonuje jeden klik na cykl i nie może wyłączyć się przez ponowne kliknięcie",
-    "Ponowne zatopienie lub Nowe logowanie zeruje poprzednią blokadę i rozpoczyna nowy cykl naprawy",
-    "Po powrocie bot czeka na niski zielony pasek PŻ na realnej mapie przed ponowną naprawą",
-    "Portable może korzystać bezpośrednio z edytowalnego workera Python w katalogu source",
-    "W ustawieniach można wybrać, do ilu procent zielonego PŻ ma trwać naprawa statku",
-    "Naprawa pozostaje wyłącznym trybem aż do wybranego poziomu; fioletowe PV jest ignorowane",
-    "NPC i potwory wymagają potwierdzenia pierścieniem lub warunkiem celu przed podejściem i atakiem",
-    "Maksymalnie trzy kontrolowane próby wyboru używają świeżego trackera albo korekty Y bez spamu",
-    "Środek wykrytego żółtego pierścienia koryguje pozycję celu dla dalszego śledzenia",
-    "Usunięto stary strażnik UI, który mógł zmienić stan celu równolegle z maszyną ataku",
-    "Podejście wysyła jedną komendę kursu i obserwuje dystans przez maksymalnie 3 sekundy",
-    "Atak jest uruchamiany dokładnie raz; do końca walki bot nie klika ponownie mapy, celu ani ataku",
-    "Złoty pierścień potwierdza wyłącznie pierwsze zaznaczenie NPC; po Attack o trwaniu i końcu walki decydują ramki celu po lewej stronie",
-    "Detektor pierścienia wykorzystuje kilka wariantów kropek, elipsy, koloru, różnicy przed kliknięciem i położenia względem ruchomego celu",
-    "Ośmiosekundowe wyciszenie zakończonej rodziny celu blokuje natychmiastową pętlę ponownego wyboru tego samego NPC",
-    "Walka blokuje patrol, a naprawa blokuje wszystkie pozostałe akcje aż do odbudowania zielonego PŻ",
-    "Naprawa mierzy wyłącznie zielone PŻ; fioletowe PV jest ignorowane",
-    "Turkusowe błyskotki i skrzynie są wykrywane według sygnatur z realnej mapy, z odrzucaniem statków i skał",
-    "Niski pasek PŻ uruchamia tryb naprawy statku i wstrzymuje wybór kolejnych celów",
-    "Po zatopieniu strukturalny detektor okna klika lewą opcję Naprawa standardowa 10% Hitpoints",
-    "Wzorce NPC, potworów i zasobów są wyszukiwane na całym morzu, także gdy zapisany ROI obejmował tylko przechwycony obiekt",
-    "Odrzucono fałszywe błyskotki na własnym statku i terenie oraz poprawiono skalowanie priorytetu zasobów przy DPI 125%",
-    "Pełny skan OpenCV jest szybki, a dokładne warianty obrotu i skali działają lokalnie po znalezieniu celu",
-    "Przywrócono kategorie NPC, potworów, błyskotek i skrzyń w trybie OCR/OpenCV bez modelu YOLO",
-    "Ustawienia modułów i filtry celów są synchronizowane w obie strony",
-    "Kliknięcie Start przed gotowością workera zachowuje wybrane kategorie",
-    "Zachowano izolację EasyOCR, CSRT, Kalman, wzorce OpenCV i automatyczną naprawę workera",
-    "Naprawiono format prostokątów przekazywanych do trackerów OpenCV 4.14",
-    "EasyOCR inicjalizuje się bez blokowania odpowiedzi OpenCV, a pętla automatu samoczynnie wznawia pracę po awarii workera",
-    "STOP kończy VisionWorker, więc ponowny START stosuje aktualne przełączniki ataku i zbierania",
-    "NPC z aktywną listą nazw są wybierane przez OCR, bez ryzyka pomylenia własnego statku ze starym wzorcem kadłuba",
-    "Worker obsługuje config.json w UTF-8 oraz UTF-8 z BOM",
-    "Dodano test rzeczywistego uruchomienia spakowanego VisionWorker.exe i analizy klatki"
-  ],
-  "filesToPreserve": [
-    "config.json"
-  ],
-  "directoriesToPreserve": [
-    "Data",
-    "Profiles",
-    "Logs",
-    "Screenshots",
-    "Captures",
-    "Templates",
-    "UserData",
-    "Backups",
-    "Diagnostics"
-  ]
+    "version":  "2.14.29",
+    "downloadUrl":  "https://github.com/barikel/Bot-Releases/releases/download/v2.14.29/SFB26-2.14.29-win-x64.zip",
+    "sha256":  "a141d45a3d04b8c6d7744b59defcd3aab925e97cb1593ccce2df5d3b300d5dfe",
+    "fileSize":  203348858,
+    "mandatory":  false,
+    "mainExecutable":  "SFB26pasek.exe",
+    "releaseNotes":  [
+                         "Aktualizacja SFB26pasek 2.14.29 z aktualnego lokalnego buildu."
+                     ],
+    "filesToPreserve":  [
+                            "config.json"
+                        ],
+    "directoriesToPreserve":  [
+                                  "Data",
+                                  "Profiles",
+                                  "Logs",
+                                  "Screenshots",
+                                  "Captures",
+                                  "Templates",
+                                  "UserData",
+                                  "Backups",
+                                  "Diagnostics"
+                              ]
 }
