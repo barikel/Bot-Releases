@@ -1,25 +1,28 @@
 {
-    "version":  "2.14.29",
-    "downloadUrl":  "https://github.com/barikel/Bot-Releases/releases/download/v2.14.29/SFB26-2.14.29-win-x64.zip",
-    "sha256":  "a141d45a3d04b8c6d7744b59defcd3aab925e97cb1593ccce2df5d3b300d5dfe",
-    "fileSize":  203348858,
-    "mandatory":  false,
-    "mainExecutable":  "SFB26pasek.exe",
-    "releaseNotes":  [
-                         "Aktualizacja SFB26pasek 2.14.29 z aktualnego lokalnego buildu."
-                     ],
-    "filesToPreserve":  [
-                            "config.json"
-                        ],
-    "directoriesToPreserve":  [
-                                  "Data",
-                                  "Profiles",
-                                  "Logs",
-                                  "Screenshots",
-                                  "Captures",
-                                  "Templates",
-                                  "UserData",
-                                  "Backups",
-                                  "Diagnostics"
-                              ]
+  "version": "2.14.30",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.30/SFB26-2.14.30-win-x64.zip",
+  "sha256": "dfccc16093d6f2799b84119328fd0e9b4c4fcb53ebcfe6e772e057d1b09140fe",
+  "fileSize": 394279897,
+  "mandatory": false,
+  "mainExecutable": "SFB26.exe",
+  "releaseNotes": [
+    "Checkpoint wersji zatwierdzonej przez użytkownika. START po wykryciu morza.",
+    "Priorytet Nowe logowanie; wygaszanie starego OCR i ponowne wyszukanie NPC.",
+    "Zaznaczenie NPC, klik obok, atak; ponowienie sekwencji, gdy HP celu nie spada."
+  ],
+  "filesToPreserve": [
+    "config.json"
+  ],
+  "directoriesToPreserve": [
+    "Data",
+    "Profiles",
+    "Logs",
+    "Screenshots",
+    "Captures",
+    "Templates",
+    "UserData",
+    "Backups",
+    "Diagnostics",
+    "source"
+  ]
 }
