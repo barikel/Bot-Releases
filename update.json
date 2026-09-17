@@ -1,14 +1,16 @@
 {
-  "version": "2.14.30",
-  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.30/SFB26-2.14.30-win-x64.zip",
-  "sha256": "dfccc16093d6f2799b84119328fd0e9b4c4fcb53ebcfe6e772e057d1b09140fe",
-  "fileSize": 394279897,
+  "version": "2.14.8",
+  "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.8/AuthorizedWebView2Rpa-2.14.8-win-x64.zip",
+  "sha256": "efad325b6154058385a940fc5bf91b44243035d0d4215e36a813c84f8a49ac49",
+  "fileSize": 380975238,
   "mandatory": false,
-  "mainExecutable": "SFB26.exe",
+  "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
-    "Checkpoint wersji zatwierdzonej przez użytkownika. START po wykryciu morza.",
-    "Priorytet Nowe logowanie; wygaszanie starego OCR i ponowne wyszukanie NPC.",
-    "Zaznaczenie NPC, klik obok, atak; ponowienie sekwencji, gdy HP celu nie spada."
+    "Naprawiono uruchamianie VisionWorker oraz brak odpowiedzi po naciśnięciu Start",
+    "EasyOCR działa w odizolowanym procesie i nie zatrzymuje OpenCV ani trackera",
+    "NPC z aktywną listą nazw są wybierane przez OCR zamiast starego wzorca kadłuba",
+    "STOP zamyka worker, a następny START wczytuje aktualne ustawienia",
+    "Poprawiono błyskotki, skrzynie, pierścień zaznaczenia, naprawę statku i powrót po zatopieniu"
   ],
   "filesToPreserve": [
     "config.json"
@@ -22,7 +24,6 @@
     "Templates",
     "UserData",
     "Backups",
-    "Diagnostics",
-    "source"
+    "Diagnostics"
   ]
 }
