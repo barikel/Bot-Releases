@@ -15,8 +15,6 @@ concurrency:
 env:
   PYTHONUTF8: '1'
   PYTHONIOENCODING: utf-8
-  VERSION: '2.14.4'
-  PACKAGE_NAME: AuthorizedWebView2Rpa-2.14.4-win-x64.zip
   MAIN_EXE: AuthorizedWebView2Rpa.exe
 
 jobs:
@@ -46,6 +44,22 @@ jobs:
           token: ${{ env.SOURCE_TOKEN }}
           path: source
 
+      - name: Resolve source version
+        shell: pwsh
+        working-directory: source
+        run: |
+          [xml]$project = Get-Content AuthorizedWebView2Rpa.csproj -Raw
+          $version = [string]$project.Project.PropertyGroup.Version | Select-Object -First 1
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            throw 'Could not read <Version> from AuthorizedWebView2Rpa.csproj.'
+          }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Invalid source version: $version"
+          }
+          "VERSION=$version" | Out-File $env:GITHUB_ENV -Append
+          "PACKAGE_NAME=AuthorizedWebView2Rpa-$version-win-x64.zip" | Out-File $env:GITHUB_ENV -Append
+          Write-Host "Building source version $version"
+
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
@@ -58,13 +72,12 @@ jobs:
             source/requirements-vision.txt
             source/requirements-build.txt
 
-      - name: Verify source version
+      - name: Verify source files
         shell: pwsh
         working-directory: source
         run: |
-          $project = Get-Content AuthorizedWebView2Rpa.csproj -Raw
-          if ($project -notmatch '<Version>\s*2\.14\.4\s*</Version>') {
-            throw 'Private source is not version 2.14.4.'
+          if ([string]::IsNullOrWhiteSpace($env:VERSION)) {
+            throw 'VERSION was not resolved from the private source.'
           }
           Get-Content config.json -Raw | ConvertFrom-Json | Out-Null
           [xml](Get-Content MainWindow.xaml -Raw) | Out-Null
@@ -192,7 +205,7 @@ jobs:
             --repo "${{ github.repository }}" `
             --target main `
             --title "AuthorizedWebView2Rpa $env:VERSION" `
-            --notes "Pełna aktualizacja OCR/OpenCV 2.14.4 z naprawionym VisionWorker, EasyOCR, śledzeniem i aktualizatorem."
+            --notes "Pełna aktualizacja OCR/OpenCV $env:VERSION z naprawionym VisionWorker, EasyOCR, śledzeniem i aktualizatorem."
 
       - name: Publish update manifest
         shell: pwsh
