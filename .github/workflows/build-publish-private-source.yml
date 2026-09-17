@@ -49,7 +49,7 @@ jobs:
         working-directory: source
         run: |
           [xml]$project = Get-Content AuthorizedWebView2Rpa.csproj -Raw
-          $version = [string]$project.Project.PropertyGroup.Version | Select-Object -First 1
+          $version = ([string]($project.Project.PropertyGroup.Version | Select-Object -First 1)).Trim()
           if ([string]::IsNullOrWhiteSpace($version)) {
             throw 'Could not read <Version> from AuthorizedWebView2Rpa.csproj.'
           }
