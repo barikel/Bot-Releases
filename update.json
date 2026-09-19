@@ -1,8 +1,8 @@
 {
   "version": "2.14.8",
   "downloadUrl": "https://github.com/barikel/Bot-Releases/releases/download/v2.14.8/AuthorizedWebView2Rpa-2.14.8-win-x64.zip",
-  "sha256": "c415d11ba4f39cb2982d6c53fca60879f110bd1d16649a52cc2a06d9390d3863",
-  "fileSize": 381003594,
+  "sha256": "0c80caa85cb9c33fd07333af03937589eb39d528d39c54abb985274d4ac80ea2",
+  "fileSize": 381002952,
   "mandatory": false,
   "mainExecutable": "AuthorizedWebView2Rpa.exe",
   "releaseNotes": [
